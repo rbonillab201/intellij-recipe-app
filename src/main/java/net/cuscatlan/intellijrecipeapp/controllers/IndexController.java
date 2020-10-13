@@ -11,7 +11,7 @@ public class IndexController {
 
     @GetMapping({"","/","/index","/index.hmtl"})
     String myIndex(Model model){
-        model.addAttribute("title","Recipe Apps");
+        model.addAttribute("title","Recipe Apps!!");
         return "index";
     }
 }
