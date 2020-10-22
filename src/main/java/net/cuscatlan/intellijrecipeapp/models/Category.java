@@ -9,7 +9,7 @@ import java.util.Set;
 @Data
 @Entity
 public class Category extends BaseId{
-    private String categoryName;
+    private String description;
     @ManyToMany(mappedBy = "categories")
     private Set<Recipe> recipes;
 }

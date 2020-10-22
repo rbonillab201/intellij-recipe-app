@@ -6,6 +6,6 @@ import javax.persistence.Entity;
 
 @Data
 @Entity
-public class UnitOfMessure extends BaseId{
+public class UnitOfMeasure extends BaseId{
     private String description;
 }

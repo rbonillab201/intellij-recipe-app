@@ -17,5 +17,5 @@ public class Ingredient extends BaseId{
     @ManyToOne
     private Recipe recipe;
     @OneToOne(fetch = FetchType.EAGER)
-    private UnitOfMessure uom;
+    private UnitOfMeasure uom;
 }
