@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 @Data
 @Entity
 public class Ingredient extends BaseId{
+
     private String description;
     private BigDecimal amount;
     @ManyToOne
