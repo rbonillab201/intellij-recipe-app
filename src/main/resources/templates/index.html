@@ -6,6 +6,11 @@
 </head>
 <body>
 <h2 th:text="${title}"></h2>
+<ul th:each="recipe : ${recipes}">
+    <li th:text="${recipe.id}"></li>
+    <li th:text="${recipe.description}"></li>
+    <li th:text="${recipe.source}"></li>
+</ul>
 
 </body>
 </html>

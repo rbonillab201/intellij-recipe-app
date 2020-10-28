@@ -1,11 +1,17 @@
 package net.cuscatlan.intellijrecipeapp.models;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 public class Recipe extends BaseId {
 
@@ -22,13 +28,25 @@ public class Recipe extends BaseId {
     @OneToOne(cascade = CascadeType.ALL)
     private Note notes;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Set<Ingredient> ingredients;
+    private Set<Ingredient> ingredients = new HashSet<>();
     @ManyToMany
     @JoinTable(name = "recipe_categories",
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
 
+    public Recipe addIngredient(Ingredient ingredients){
+        if(ingredients != null){
+            ingredients.setRecipe(this);
+            this.ingredients.add(ingredients);
+        }
+        return this;
+    }
 
-
+    public void setNotes(Note notes) {
+        if (notes != null) {
+            this.notes = notes;
+            notes.setRecipe(this);
+        }
+    }
 }
