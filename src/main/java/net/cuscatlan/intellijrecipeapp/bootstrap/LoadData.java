@@ -1,5 +1,6 @@
 package net.cuscatlan.intellijrecipeapp.bootstrap;
 
+import lombok.extern.slf4j.Slf4j;
 import net.cuscatlan.intellijrecipeapp.models.*;
 import net.cuscatlan.intellijrecipeapp.repositories.CategoryRepository;
 import net.cuscatlan.intellijrecipeapp.repositories.RecipeRepository;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Component
 public class LoadData implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -30,10 +32,13 @@ public class LoadData implements ApplicationListener<ContextRefreshedEvent> {
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         recipeRepository.saveAll(getData());
+        log.info("En el inicio de la aplicación, onApplicationEvent");
     }
 
     public List<Recipe> getData(){
         List<Recipe> recipes = new ArrayList<>();
+
+        log.info("Iniciando la carga");
 
         Recipe recipeTacos = new Recipe();
 
@@ -47,7 +52,7 @@ public class LoadData implements ApplicationListener<ContextRefreshedEvent> {
             throw new RuntimeException("Mexican does not exist");
         }
 
-        recipeTacos.setDescription("Tacos Ricos");
+        recipeTacos.setDescription("Tacos Ricoss");
         recipeTacos.setCookTime(0);
         recipeTacos.setPrepTime(10);
         recipeTacos.setDirections("Solo cocine");
@@ -67,7 +72,7 @@ public class LoadData implements ApplicationListener<ContextRefreshedEvent> {
         recipes.add(recipeTacos);
 
         Recipe recipeCeviche = new Recipe();
-        recipeCeviche.setDescription("Ceviche Rico");
+        recipeCeviche.setDescription("Ceviches Ricos");
         recipeCeviche.setPrepTime(30);
         recipeCeviche.setCookTime(0);
         recipeCeviche.setUrl("www");
@@ -91,6 +96,8 @@ public class LoadData implements ApplicationListener<ContextRefreshedEvent> {
         recipeCeviche.setNotes(notesCeviche);
 
         recipes.add(recipeCeviche);
+
+        log.info("finalizando la carga $$");
 
         return recipes;
 
