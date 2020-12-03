@@ -3,14 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${title}">Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+            crossorigin="anonymous"></script>
 </head>
 <body>
-<h2 th:text="${title}"></h2>
-<ul th:each="recipe : ${recipes}">
-    <li th:text="${recipe.id}"></li>
-    <li th:text="${recipe.description}"></li>
-    <li th:text="${recipe.source}"></li>
-</ul>
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card border-primary">
+                <div class="card-header text-white bg-primary mb-3">
+                    <h2 th:text="${title}"></h2>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive" th:if="${not #lists.isEmpty(recipes)}">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="recipe : ${recipes}">
+                                <td th:text="${recipe.id}"></td>
+                                <td th:text="${recipe.description}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 
 </body>
 </html>
