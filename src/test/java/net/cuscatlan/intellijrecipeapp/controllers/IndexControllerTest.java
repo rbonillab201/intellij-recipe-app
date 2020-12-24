@@ -33,13 +33,14 @@ class IndexControllerTest extends BaseId {
     IndexController controller;
 
 
+    Set<Recipe> arrayRecipe = new HashSet<>();
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
         controller = new IndexController(recipeService);
         Set<Recipe> recetas = new HashSet<>();
-        System.out.println("show: " + recipeService);
+        System.out.println("show: " + recipeService.toString());
 
         Recipe recipes = new Recipe();
         recipes.setUrl("www");
@@ -62,13 +63,8 @@ class IndexControllerTest extends BaseId {
 
         System.out.println(" --> " + recetas);
 
-    }
-
-    @Test
-    void myIndex() {
-
         //Given
-        Set<Recipe> arrayRecipe = new HashSet<>();
+     //   Set<Recipe> arrayRecipe = new HashSet<>();
         System.out.println(" 0 " + arrayRecipe.size());
         arrayRecipe.add(new Recipe());
         System.out.println(" 1 " + arrayRecipe.size());
@@ -85,22 +81,33 @@ class IndexControllerTest extends BaseId {
         arrayRecipe.add(receipt2);
         System.out.println(" 3 " + arrayRecipe.size());
 
+    }
+
+    @Test
+    void myIndex() {
+
         when(recipeService.getRecipes()).thenReturn(arrayRecipe);
+
+
+
+        ArgumentCaptor<Set<Recipe>> argumentCaptor = ArgumentCaptor.forClass(Set.class);
+        System.out.println("Argument1: " + argumentCaptor.toString());
 
 
         // when
         String viewname = controller.myIndex(model);
-        ArgumentCaptor<Set<Recipe>> argumentCaptor = ArgumentCaptor.forClass(Set.class);
-        System.out.println("Argument1: " + argumentCaptor.toString());
+
 
         //then
 
         assertEquals("index", viewname);
+
         verify(recipeService, Mockito.times(1)).getRecipes();
         verify(model, Mockito.times(1)).addAttribute(Mockito.eq("recipes"), argumentCaptor.capture()); // Mockito.anySet());
-        System.out.println("Argument2: " + argumentCaptor.toString());
+        System.out.println("Objetos: " + argumentCaptor.getValue().size());
         Set<Recipe> inController = argumentCaptor.getValue();
         assertEquals(3, inController.size());
+
 
     }
 }
