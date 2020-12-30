@@ -12,6 +12,11 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import org.springframework.ui.Model;
 
 import java.util.HashSet;
@@ -107,6 +112,17 @@ class IndexControllerTest extends BaseId {
         System.out.println("Objetos: " + argumentCaptor.getValue().size());
         Set<Recipe> inController = argumentCaptor.getValue();
         assertEquals(3, inController.size());
+
+
+    }
+
+    @Test
+    void myMcvTest() throws Exception {
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+
+        mockMvc.perform(get("/"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("index"));
 
 
     }
